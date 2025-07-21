@@ -1,0 +1,6 @@
+#define GPIOC_BASE (0x40011000)
+#define RCC_BASE (0x40021000)
+#define GPIOC_CRH (*(volatile unsigned long *) (GPIOC_BASE + 0x4))
+#define GPIOC_ODR (*(volatile unsigned long *) (GPIOC_BASE + 0xC))
+#define RCC_APB2ENR (*(volatile unsigned long *) (RCC_BASE + 0x18))
+#define RCC_APB2ENR_IOPCEN (1 << 4)
