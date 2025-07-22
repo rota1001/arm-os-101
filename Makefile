@@ -3,14 +3,14 @@ CROSS_COMPILE ?= arm-linux-gnueabi-
 
 BUILD_DIR = build
 
-SRCS = src/kernel/boot.c src/kernel/main.c
+SRCS = src/kernel/boot.c src/kernel/main.c src/kernel/usart.c src/kernel/libc.c
 OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)
 
 CC = $(CROSS_COMPILE)gcc
 LD = $(CROSS_COMPILE)ld
 OBJCOPY = $(CROSS_COMPILE)objcopy
 
-CFLAGS = -mcpu=cortex-m3 -mthumb -nostartfiles -g
+CFLAGS = -mcpu=cortex-m3 -mthumb -nostartfiles -g -nostdlib -ffreestanding
 CFLAGS += -Iinclude
 
 all: kernel.bin
@@ -29,4 +29,4 @@ flash: kernel.bin
 	st-flash --reset write $< 0x8000000
 
 clean:
-	rm -rf *.o *.out *.bin *.map
+	rm -rf *.o *.out *.bin *.map build/*
