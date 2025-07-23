@@ -1,9 +1,12 @@
 #include "kernel/debug.h"
 #include "kernel/libc.h"
-#include "kernel/regs.h"
+#include "kernel/usb.h"
+
 
 int kernel_main()
 {
-    USART1_init();
+    usb0_init();
+    while (!usb0_available())
+        ;
     PANIC("unreachable");
 }

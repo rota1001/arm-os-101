@@ -1,6 +1,11 @@
 #define GPIOA_BASE (0x40010800)
 #define GPIOA_CRH (*(volatile unsigned long *) (GPIOA_BASE + 0x4))
 
+#define GPIOB_BASE (0x40010C00)
+#define GPIOB_CRH (*(volatile unsigned long *) (GPIOB_BASE + 0x4))
+#define GPIOB_IDR (*(volatile unsigned long *) (GPIOB_BASE + 0x8))
+#define GPIOB_ODR (*(volatile unsigned long *) (GPIOB_BASE + 0xC))
+
 #define GPIOC_BASE (0x40011000)
 #define GPIOC_CRH (*(volatile unsigned long *) (GPIOC_BASE + 0x4))
 #define GPIOC_ODR (*(volatile unsigned long *) (GPIOC_BASE + 0xC))
@@ -11,8 +16,21 @@
 #define RCC_APB2ENR (*(volatile unsigned long *) (RCC_BASE + 0x18))
 #define RCC_APB2ENR_AFIOEN (1)
 #define RCC_APB2ENR_IOPAEN (1 << 2)
+#define RCC_APB2ENR_IOPBEN (1 << 3)
 #define RCC_APB2ENR_IOPCEN (1 << 4)
 #define RCC_APB2ENR_USART1EN (1 << 14)
+
+#define GPIO_CNF_INPUT_ANALOG (0b00)
+#define GPIO_CNF_INPUT_FLOATING (0b01)
+#define GPIO_CNF_INPUT_PUSH_PULL (0b10)
+#define GPIO_CNF_INPUT_RESERVED (0b11)
+
+#define GPIO_MODE_INPUT (0b00)
+#define GPIO_MODE_OUTPUT_10MHz (0b01)
+#define GPIO_MODE_OUTPUT_2MHZ (0b10)
+#define GPIO_MODE_OUTPUT_50MHZ (0b11)
+
+#define GPIO_CONF(CNF, MODE) (((CNF) << 2) | (MODE))
 
 #define USART1_BASE (0x40013800)
 #define USART1_SR (*(volatile unsigned long *) (USART1_BASE))
