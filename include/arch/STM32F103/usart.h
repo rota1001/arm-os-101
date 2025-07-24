@@ -1,4 +1,4 @@
-#include "kernel/regs.h"
+#include "regs.h"
 
 void USART1_init(void);
 

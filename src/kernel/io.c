@@ -1,6 +1,6 @@
 #include <stdint.h>
+#include "arch.h"
 #include "kernel/libc.h"
-#include "kernel/usart.h"
 
 #define clz __builtin_clz
 

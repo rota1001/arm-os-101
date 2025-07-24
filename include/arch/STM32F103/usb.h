@@ -1,4 +1,4 @@
-#include "kernel/usart.h"
+#include "usart.h"
 
 void usb0_init(void);
 

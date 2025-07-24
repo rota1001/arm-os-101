@@ -1,4 +1,4 @@
-#include "kernel/usb.h"
+#include "arch/STM32F103/usb.h"
 void usb0_init(void)
 {
     /* PB12 input with push-up */

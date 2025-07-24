@@ -1,5 +1,5 @@
-#include "kernel/regs.h"
-#include "kernel/usart.h"
+#include "arch/STM32F103/regs.h"
+#include "arch/STM32F103/usart.h"
 extern void kernel_main(void);
 
 extern unsigned long _etext, _data, _edata, _bss, _ebss, _text_lma, _text,

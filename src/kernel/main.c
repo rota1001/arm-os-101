@@ -1,7 +1,5 @@
-#include "kernel/debug.h"
+#include "arch.h"
 #include "kernel/libc.h"
-#include "kernel/usb.h"
-
 
 int kernel_main()
 {

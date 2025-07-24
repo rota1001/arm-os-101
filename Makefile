@@ -3,8 +3,12 @@ CROSS_COMPILE ?= arm-linux-gnueabi-
 
 BUILD_DIR = build
 
-SRCS = src/kernel/boot.c src/kernel/main.c src/kernel/usart.c \
-	   src/kernel/usb.c src/kernel/io.c src/kernel/mm.c
+ARCH = STM32F103
+
+SRCS = src/kernel/main.c src/kernel/io.c src/kernel/mm.c
+SRCS += src/arch/$(ARCH)/usart.c src/arch/$(ARCH)/boot.c src/arch/$(ARCH)/usb.c src/arch/$(ARCH)/led.c
+
+LINKER = src/arch/$(ARCH)/linker.ld
 
 OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)
 
@@ -14,6 +18,7 @@ OBJCOPY = $(CROSS_COMPILE)objcopy
 
 CFLAGS = -mcpu=cortex-m3 -mthumb -nostartfiles -g -nostdlib -ffreestanding
 CFLAGS += -Iinclude
+CFLAGS += -Iinclude/arch/$(ARCH)
 
 all: kernel.bin
 
@@ -21,8 +26,8 @@ $(BUILD_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-kernel.out: $(OBJS) linker.ld
-	$(LD) -T linker.ld -Map=main.map -o $@ $(OBJS)
+kernel.out: $(OBJS) $(LINKER)
+	$(LD) -T $(LINKER) -Map=main.map -o $@ $(OBJS)
 
 kernel.bin: kernel.out
 	$(OBJCOPY) -O binary $< $@
