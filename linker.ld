@@ -32,5 +32,8 @@ SECTIONS {
         _ebss = .;
     } > SRAM
 
-    _estack = ORIGIN(SRAM) + LENGTH(SRAM);
+    _stack_top = ORIGIN(SRAM) + LENGTH(SRAM);
+    _stack_bottom = _stack_top - 10K;
+    _heap_start = _ebss;
+    _heap_end = _stack_bottom;
 }

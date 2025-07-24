@@ -3,7 +3,9 @@ CROSS_COMPILE ?= arm-linux-gnueabi-
 
 BUILD_DIR = build
 
-SRCS = src/kernel/boot.c src/kernel/main.c src/kernel/usart.c src/kernel/libc.c src/kernel/usb.c
+SRCS = src/kernel/boot.c src/kernel/main.c src/kernel/usart.c \
+	   src/kernel/usb.c src/kernel/io.c src/kernel/mm.c
+
 OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)
 
 CC = $(CROSS_COMPILE)gcc

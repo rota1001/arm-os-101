@@ -3,7 +3,7 @@
 extern void kernel_main(void);
 
 extern unsigned long _etext, _data, _edata, _bss, _ebss, _text_lma, _text,
-    _estack;
+    _stack_top;
 
 __attribute__((section(".reset"))) void reset_isr()
 {
@@ -26,4 +26,4 @@ __attribute__((section(".reset"))) void reset_isr()
 
 
 __attribute__((section(".isr_vector"))) unsigned long vector[] = {
-    (unsigned long) &_estack, (unsigned long) reset_isr};
+    (unsigned long) &_stack_top, (unsigned long) reset_isr};

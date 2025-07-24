@@ -17,3 +17,11 @@ long getchar(void);
 void printf(const char *fmt, ...);
 
 void getline(char *s, int len);
+
+void mm_init(void);
+
+/* Notice that `mem_init` has to be called before any memory allocation */
+void *malloc(int size);
+
+/* Notice that `addr` has to be ensured to be a valid address */
+void free(void *addr);
