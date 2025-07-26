@@ -6,7 +6,8 @@ BUILD_DIR = build
 ARCH = STM32F103
 
 SRCS = src/kernel/main.c src/kernel/io.c src/kernel/mm.c
-SRCS += src/arch/$(ARCH)/usart.c src/arch/$(ARCH)/boot.c src/arch/$(ARCH)/usb.c src/arch/$(ARCH)/led.c
+SRCS += src/arch/$(ARCH)/usart.c src/arch/$(ARCH)/boot.c src/arch/$(ARCH)/usb.c \
+		src/arch/$(ARCH)/led.c src/arch/$(ARCH)/context.c
 
 LINKER = src/arch/$(ARCH)/linker.ld
 
