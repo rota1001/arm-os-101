@@ -1,43 +1,42 @@
 #include "context.h"
 
-int setjmp(context_t *ctx)
+
+__attribute__((naked)) int setjmp(context_t *ctx)
 {
     asm volatile(
-        "STR r4, [%[ctx]]\n"
-        "STR r5, [%[ctx], #4]\n"
-        "STR r6, [%[ctx], #8]\n"
-        "STR r7, [%[ctx], #12]\n"
-        "STR r8, [%[ctx], #16]\n"
-        "STR r9, [%[ctx], #20]\n"
-        "STR r10, [%[ctx], #24]\n"
-        "STR r11, [%[ctx], #28]\n"
-        "STR lr, [%[ctx], #32]\n"
-        "mrs r0, psp\n"
-        "STR r0, [%[ctx], #36]\n"
+        "str r4, [r0]\n"
+        "str r5, [r0, #4]\n"
+        "str r6, [r0, #8]\n"
+        "str r7, [r0, #12]\n"
+        "str r8, [r0, #16]\n"
+        "str r9, [r0, #20]\n"
+        "str r10, [r0, #24]\n"
+        "str r11, [r0, #28]\n"
+        "str lr, [r0, #32]\n"
+        "str sp, [r0, #36]\n"
+        "mov r0, 0\n"
+        "bx lr\n"
         :
-        : [ctx] "r"(ctx)
+        :
         : "memory");
-    return 0;
 }
 
-__attribute__((noreturn)) void longjmp(context_t *ctx)
+__attribute__((naked)) void longjmp(context_t *ctx)
 {
     asm volatile(
-        "LDR r4, [%[ctx]]\n"
-        "LDR r5, [%[ctx], #4]\n"
-        "LDR r6, [%[ctx], #8]\n"
-        "LDR r7, [%[ctx], #12]\n"
-        "LDR r8, [%[ctx], #16]\n"
-        "LDR r9, [%[ctx], #20]\n"
-        "LDR r10, [%[ctx], #24]\n"
-        "LDR r11, [%[ctx], #28]\n"
-        "LDR lr, [%[ctx], #32]\n"
-        "LDR r0, [%[ctx], #36]\n"
-        "msr psp, r0\n"
+        "ldr r4, [r0]\n"
+        "ldr r5, [r0, #4]\n"
+        "ldr r6, [r0, #8]\n"
+        "ldr r7, [r0, #12]\n"
+        "ldr r8, [r0, #16]\n"
+        "ldr r9, [r0, #20]\n"
+        "ldr r10, [r0, #24]\n"
+        "ldr r11, [r0, #28]\n"
+        "ldr lr, [r0, #32]\n"
+        "ldr sp, [r0, #36]\n"
         "mov r0, 1\n"
         "bx lr\n"
         :
-        : [ctx] "r"(ctx)
+        :
         : "memory");
-    __builtin_unreachable();
 }
