@@ -56,7 +56,7 @@ void *malloc(int size)
     }
 
     if (!found)
-        return ERR2PTR(-1);
+        return 0;
 
     if (found->size < size + sizeof(block_t)) {
         SET_USE_BIT(found);
@@ -86,4 +86,20 @@ void free(void *addr)
         block = merge(PREV_BLOCK(block), block);
     if (!NEXT_INUSE(block))
         block = merge(block, NEXT_BLOCK(block));
+}
+
+void memset(void *addr, unsigned char c, int n)
+{
+    uint32_t x = c;
+    x |= x << 8;
+    x |= x << 16;
+    while (n >= 4) {
+        *(uint32_t *) addr = x;
+        addr += 4;
+        n -= 4;
+    }
+    while (n--) {
+        *(unsigned char *) addr = c;
+        addr++;
+    }
 }

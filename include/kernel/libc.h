@@ -25,9 +25,15 @@ void *malloc(int size);
 /* Notice that `addr` has to be ensured to be a valid address */
 void free(void *addr);
 
+void memset(void *addr, unsigned char c, int n);
+
 #define PANIC(fmt, ...)                                                       \
     do {                                                                      \
         printf("\n=== KERNEL PANIC ===\n");                                   \
         printf(fmt "\nLocation: %s:%d\n", ##__VA_ARGS__, __FILE__, __LINE__); \
         debug_shine_led();                                                    \
     } while (0)
+
+#define offsetof(TYPE, MEMBER) __builtin_offsetof(TYPE, MEMBER)
+#define container_of(ptr, type, member) \
+    (type *) ((char *) (ptr) - offsetof(type, member))

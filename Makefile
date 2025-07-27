@@ -1,11 +1,13 @@
 CROSS_COMPILE ?= arm-linux-gnueabi-
 .PHONY: all
 
+QEMU_STM32 = ../qemu_stm32/arm-softmmu/qemu-system-arm
+
 BUILD_DIR = build
 
 ARCH = STM32F103
 
-SRCS = src/kernel/main.c src/kernel/io.c src/kernel/mm.c
+SRCS = src/kernel/main.c src/kernel/io.c src/kernel/mm.c src/kernel/sched.c
 SRCS += src/arch/$(ARCH)/usart.c src/arch/$(ARCH)/boot.c src/arch/$(ARCH)/usb.c \
 		src/arch/$(ARCH)/led.c src/arch/$(ARCH)/context.c
 
@@ -38,3 +40,7 @@ flash: kernel.bin
 
 clean:
 	rm -rf *.o *.out *.bin *.map build/*
+
+qemu: kernel.bin
+	$(QEMU_STM32) -M stm32-f103c8 \
+		-kernel kernel.bin -serial mon:stdio -nographic
