@@ -1,6 +1,5 @@
 # arm-os-101
 This is a minimal OS running on stm32f103.
-This OS currently only support stm32f103 and cannot be simulated by qemu.
 
 ## build
 First, install the GNU toolchains for Arm:
@@ -27,7 +26,21 @@ Last, flash the kernel to the board with stlink (you must connect it to the boar
 make flash
 ```
 
+## QEMU simulation
+First, you should compile a [qemu_stm32](https://github.com/beckus/qemu_stm32) yourself since the main branch of qemu doesn't support stm32f103. Notice that you should have the python2 environment.
+```
+sudo apt install device-tree-compiler libfdt-dev
+git clone git://github.com/beckus/qemu_stm32.git
+cd qemu-stm32
+./configure --enable-debug --disable-werror --target-list="arm-softmmu"
+make -j`nproc`
+```
+Second, specify the path of `arm-softmmu/qemu-system-arm` in the Makefile.
 
+Third, use the following command to start the simulation:
+```
+make qemu
+```
 ## How to play
 First of all, you have to have a stm32f103 board and a usb-to-serial module.
 
