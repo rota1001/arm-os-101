@@ -29,6 +29,8 @@ int kernel_main()
     usb0_init();
     mm_init();
     sched_init();
+    while (!usb0_available())
+        ;
     printf("=================\n");
     char *stack1, *stack2;
     stack1 = malloc(512);
@@ -50,7 +52,5 @@ FAIL3:
 FAIL2:
     free(stack1);
 FAIL1:
-    while (!usb0_available())
-        ;
     PANIC("unreachable");
 }
