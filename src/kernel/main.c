@@ -1,6 +1,7 @@
 #include "arch.h"
 #include "kernel/libc.h"
 #include "kernel/sched.h"
+#include "rcc.h"
 
 
 void proc1(void)
@@ -26,6 +27,7 @@ void proc2(void)
 
 int kernel_main()
 {
+    rcc_init();
     usb0_init();
     mm_init();
     sched_init();

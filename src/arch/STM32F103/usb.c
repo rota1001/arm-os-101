@@ -2,7 +2,7 @@
 void usb0_init(void)
 {
     /* PB12 input with push-up */
-    RCC->APB2ENR.IOPBEN = 1;
+    SET_REG_FIELD(RCC->APB2ENR, RCC_APB2ENR_IOPBEN, 1);
     GPIOB->CR.MODE12 = MODE_INPUT;
     GPIOB->CR.CNF12 = CNF_INPUT_PUSH_PULL;
     GPIOB->ODR |= (1 << 12);
