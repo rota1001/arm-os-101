@@ -12,43 +12,10 @@
     enum { FIELD##_POS = (POS), FIELD##_MASK = ((WIDTHMASK) << (POS)) }
 
 
-struct gpio_cr {
-    volatile unsigned long MODE0 : 2;
-    volatile unsigned long CNF0 : 2;
-    volatile unsigned long MODE1 : 2;
-    volatile unsigned long CNF1 : 2;
-    volatile unsigned long MODE2 : 2;
-    volatile unsigned long CNF2 : 2;
-    volatile unsigned long MODE3 : 2;
-    volatile unsigned long CNF3 : 2;
-    volatile unsigned long MODE4 : 2;
-    volatile unsigned long CNF4 : 2;
-    volatile unsigned long MODE5 : 2;
-    volatile unsigned long CNF5 : 2;
-    volatile unsigned long MODE6 : 2;
-    volatile unsigned long CNF6 : 2;
-    volatile unsigned long MODE7 : 2;
-    volatile unsigned long CNF7 : 2;
-    volatile unsigned long MODE8 : 2;
-    volatile unsigned long CNF8 : 2;
-    volatile unsigned long MODE9 : 2;
-    volatile unsigned long CNF9 : 2;
-    volatile unsigned long MODE10 : 2;
-    volatile unsigned long CNF10 : 2;
-    volatile unsigned long MODE11 : 2;
-    volatile unsigned long CNF11 : 2;
-    volatile unsigned long MODE12 : 2;
-    volatile unsigned long CNF12 : 2;
-    volatile unsigned long MODE13 : 2;
-    volatile unsigned long CNF13 : 2;
-    volatile unsigned long MODE14 : 2;
-    volatile unsigned long CNF14 : 2;
-    volatile unsigned long MODE15 : 2;
-    volatile unsigned long CNF15 : 2;
-};
 
 struct gpio {
-    volatile struct gpio_cr CR;
+    volatile unsigned long CRL;
+    volatile unsigned long CRH;
     volatile unsigned long IDR;
     volatile unsigned long ODR;
     volatile unsigned long BSRR;
@@ -56,6 +23,39 @@ struct gpio {
     volatile unsigned long LCKR;
 };
 
+DEFINE_REG_FIELD(GPIO_CRL_MODE0, 0, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_CNF0, 2, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_MODE1, 4, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_CNF1, 6, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_MODE2, 8, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_CNF2, 10, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_MODE3, 12, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_CNF3, 14, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_MODE4, 16, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_CNF4, 18, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_MODE5, 20, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_CNF5, 22, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_MODE6, 24, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_CNF6, 26, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_MODE7, 28, 0x3);
+DEFINE_REG_FIELD(GPIO_CRL_CNF7, 30, 0x3);
+
+DEFINE_REG_FIELD(GPIO_CRH_MODE8, 0, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_CNF8, 2, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_MODE9, 4, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_CNF9, 6, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_MODE10, 8, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_CNF10, 10, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_MODE11, 12, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_CNF11, 14, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_MODE12, 16, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_CNF12, 18, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_MODE13, 20, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_CNF13, 22, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_MODE14, 24, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_CNF14, 26, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_MODE15, 28, 0x3);
+DEFINE_REG_FIELD(GPIO_CRH_CNF15, 30, 0x3);
 
 #define GPIOA_BASE (0x40010800)
 #define GPIOA ((struct gpio *) GPIOA_BASE)
