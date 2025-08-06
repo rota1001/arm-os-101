@@ -7,9 +7,10 @@ BUILD_DIR = build
 
 ARCH = STM32F103
 
-SRCS = src/kernel/main.c src/kernel/io.c src/kernel/mm.c src/kernel/sched.c
+SRCS = src/kernel/main.c src/kernel/io.c src/kernel/mm.c src/kernel/sched.c src/kernel/interrupt.c
 SRCS += src/arch/$(ARCH)/usart.c src/arch/$(ARCH)/boot.c src/arch/$(ARCH)/usb.c \
-		src/arch/$(ARCH)/led.c src/arch/$(ARCH)/context.c src/arch/$(ARCH)/rcc.c
+		src/arch/$(ARCH)/led.c src/arch/$(ARCH)/context.c src/arch/$(ARCH)/rcc.c \
+		src/arch/$(ARCH)/timer.c
 
 LINKER = src/arch/$(ARCH)/linker.ld
 
@@ -42,5 +43,9 @@ clean:
 	rm -rf *.o *.out *.bin *.map build/*
 
 qemu: kernel.bin
-	$(QEMU_STM32) -M stm32-f103c8 \
+	$(QEMU_STM32) -M stm32-f103c8\
+		-kernel kernel.bin -serial mon:stdio -nographic
+
+debug: kernel.bin
+	$(QEMU_STM32) -M stm32-f103c8 -s -S\
 		-kernel kernel.bin -serial mon:stdio -nographic

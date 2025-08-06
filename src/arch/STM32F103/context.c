@@ -14,6 +14,8 @@ __attribute__((naked)) int setjmp(context_t *ctx)
         "str r11, [r0, #28]\n"
         "str lr, [r0, #32]\n"
         "str sp, [r0, #36]\n"
+        "mrs r1, psr\n"
+        "str r1, [r0, #40]\n"
         "mov r0, 0\n"
         "bx lr\n"
         :
@@ -34,6 +36,7 @@ __attribute__((naked)) void longjmp(context_t *ctx)
         "ldr r11, [r0, #28]\n"
         "ldr lr, [r0, #32]\n"
         "ldr sp, [r0, #36]\n"
+        "ldr r1, [r0, #40]\n"
         "mov r0, 1\n"
         "bx lr\n"
         :

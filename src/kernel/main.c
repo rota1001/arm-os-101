@@ -8,9 +8,8 @@ void proc1(void)
 {
     while (1) {
         printf("proc1\n");
-        for (int c = 0; c < 50000; c++)
+        for (int c = 0; c < 500000; c++)
             ;
-        yield();
     }
 }
 
@@ -18,9 +17,8 @@ void proc2(void)
 {
     while (1) {
         printf("proc2\n");
-        for (int c = 0; c < 50000; c++)
+        for (int c = 0; c < 500000; c++)
             ;
-        yield();
     }
 }
 
@@ -31,8 +29,7 @@ int kernel_main()
     usb0_init();
     mm_init();
     sched_init();
-    while (!usb0_available())
-        ;
+    timer_irq_init();
     printf("=================\n");
     char *stack1, *stack2;
     stack1 = malloc(512);

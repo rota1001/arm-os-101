@@ -1,5 +1,7 @@
 #include "arch/STM32F103/regs.h"
 #include "arch/STM32F103/usart.h"
+#include "timer.h"
+
 extern void kernel_main(void);
 
 extern unsigned long _etext, _data, _edata, _bss, _ebss, _text_lma, _text,
@@ -25,5 +27,15 @@ __attribute__((section(".reset"))) void reset_isr()
 }
 
 
+#define MSP 0
+#define RESET 1
+#define PEND_SV 14
+#define SYSTICK 15
+#define TIM2_IRQ 44
+
+
 __attribute__((section(".isr_vector"))) unsigned long vector[] = {
-    (unsigned long) &_stack_top, (unsigned long) reset_isr};
+    [MSP](unsigned long) & _stack_top,
+    [RESET](unsigned long) reset_isr,
+    [PEND_SV](unsigned long) pend_sv_irq_handler,
+    [SYSTICK](unsigned long) systick_irq_handler};

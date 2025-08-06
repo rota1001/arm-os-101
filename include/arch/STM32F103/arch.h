@@ -1,5 +1,6 @@
 #include "context.h"
 #include "led.h"
 #include "regs.h"
+#include "timer.h"
 #include "usart.h"
 #include "usb.h"
