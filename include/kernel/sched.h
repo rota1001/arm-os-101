@@ -12,6 +12,6 @@ void sched_init(void);
 
 void yield(void);
 
-void sched(void);
+void sched_next_task(void);
 
 task_t *proc_create(void (*func)(void), void *stack);

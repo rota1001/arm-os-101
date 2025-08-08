@@ -3,6 +3,7 @@
 #include "kernel/sched.h"
 #include "rcc.h"
 
+extern int sched_ready;
 
 void proc1(void)
 {
@@ -45,6 +46,7 @@ int kernel_main()
     if (!proc_create(proc2, stack2 + 512))
         goto FAIL3;
 
+    sched_ready = 1;
     sched();
 FAIL3:
     free(stack2);
