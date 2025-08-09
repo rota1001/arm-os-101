@@ -14,4 +14,7 @@ void yield(void);
 
 void sched_next_task(void);
 
-task_t *proc_create(void (*func)(void), void *stack);
+#define CONTROL_KERNEL_PROC 0b10
+#define CONTROL_USER_PROC 0b11
+
+task_t *proc_create(void (*func)(void), void *stack, unsigned long control);

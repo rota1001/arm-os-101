@@ -9,7 +9,7 @@ void sched_init(void)
     list_init(&task_list);
 }
 
-task_t *proc_create(void (*func)(void), void *stack)
+task_t *proc_create(void (*func)(void), void *stack, unsigned long control)
 {
     task_t *task = (task_t *) malloc(sizeof(task_t));
     if (!task)
@@ -18,6 +18,7 @@ task_t *proc_create(void (*func)(void), void *stack)
     task->context.lr = (unsigned long) func;
     task->context.psp = (unsigned long) stack;
     task->context.psr = 0x1000000;
+    task->context.control = control;
     list_push_back(&task_list, &task->list);
     return task;
 }

@@ -9,3 +9,5 @@ void systick_irq_handler(void);
 __attribute__((naked, noreturn)) void ret_to_sched(void);
 
 __attribute__((naked, noreturn)) void restore_tmp_registers(void);
+
+void svc_handler(void);

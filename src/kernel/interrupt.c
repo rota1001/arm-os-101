@@ -1,6 +1,6 @@
+#include "exception.h"
 #include "kernel/libc.h"
 #include "kernel/sched.h"
-#include "timer.h"
 
 
 extern task_t *current;

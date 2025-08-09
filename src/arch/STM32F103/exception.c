@@ -1,4 +1,4 @@
-#include "timer.h"
+#include "exception.h"
 #include "kernel/sched.h"
 
 extern context_t sched_context;
@@ -32,6 +32,8 @@ __attribute__((naked, noreturn)) void ret_to_sched(void)
         "push {r0}\n"
         "push {r1}\n"
         "add sp, sp, #-24\n"
+        "mov r0, 0\n"
+        "msr control, r0\n"
         "ldr lr, =0xfffffff9\n"
         "bx lr\n");
 }
@@ -51,4 +53,9 @@ __attribute__((naked)) void pend_sv_irq_handler(void)
 void systick_irq_handler(void)
 {
     SET_REG_FIELD(ICSR, ICSR_PENDSVSET, 1);
+}
+
+void svc_handler(void)
+{
+    printf("SVC\n");
 }

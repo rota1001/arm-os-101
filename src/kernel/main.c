@@ -41,9 +41,9 @@ int kernel_main()
     if (!stack2)
         goto FAIL2;
 
-    if (!proc_create(proc1, stack1 + 512))
+    if (!proc_create(proc1, stack1 + 512, CONTROL_USER_PROC))
         goto FAIL3;
-    if (!proc_create(proc2, stack2 + 512))
+    if (!proc_create(proc2, stack2 + 512, CONTROL_KERNEL_PROC))
         goto FAIL3;
 
     sched_ready = 1;

@@ -4,6 +4,7 @@ typedef struct context {
     unsigned long lr;  /* return address */
     unsigned long psp; /* stack pointer */
     unsigned long psr;
+    unsigned long control; /* the special control register */
 } context_t;
 
 __attribute__((naked)) int setjmp(context_t *ctx);
