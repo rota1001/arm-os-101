@@ -1,7 +1,7 @@
 CROSS_COMPILE ?= arm-linux-gnueabi-
 .PHONY: all
 
-QEMU_STM32 = ../qemu_stm32/arm-softmmu/qemu-system-arm
+QEMU_STM32 = qemu_stm32/arm-softmmu/qemu-system-arm
 
 BUILD_DIR = build
 

@@ -59,3 +59,7 @@ dkms.conf
 
 DAC_OUT_PUT*
 .gdb_history
+
+Python-2.7.18*
+Python-2.7.18/*
+qemu_stm32/*
