@@ -1,5 +1,5 @@
 # arm-os-101
-This is a minimal OS running on stm32f103.
+This is a minimal multitasking OS running on stm32f103.
 
 ## build
 First, install the GNU toolchains for Arm:
@@ -27,21 +27,18 @@ make flash
 ```
 
 ## QEMU simulation
-First, you should compile a [qemu_stm32](https://github.com/beckus/qemu_stm32) yourself since the main branch of qemu doesn't support stm32f103. Notice that you should have the python2 environment.
-```
-sudo apt install device-tree-compiler libfdt-dev
-git clone git://github.com/beckus/qemu_stm32.git
-cd qemu-stm32
-./configure --enable-debug --disable-werror --target-list="arm-softmmu"
-make -j`nproc`
-```
-Second, specify the path of `arm-softmmu/qemu-system-arm` in the Makefile.
+First, you should compile a [qemu_stm32](https://github.com/beckus/qemu_stm32) yourself since the main branch of qemu doesn't support stm32f103.
 
-Third, use the following command to start the simulation:
+Don't worry, I have written a simple shell script to help you. You just have to execute the following command under the `arm-os-101` directory.
+```
+chmod +x qemu-build.sh
+./qemu-build.sh
+```
+After doing this, you can simply use the following command to boot the OS:
 ```
 make qemu
 ```
-## How to play
+## How to play it on real board
 First of all, you have to have a stm32f103 board and a usb-to-serial module.
 
 Second, build and flash the kernel with above steps.
@@ -57,3 +54,13 @@ sudo minicom -D /dev/ttyUSB0 -b 9600
 It will not be necessarily `/dev/ttyUSB0`, you can use `dmesg` to check it when you plug in the usb module.
 
 Last but not least, press the reset button and have fun!
+
+## Features
+- kernel and user process
+- preemptive scheduler
+- schedulable syscall function
+## TODO
+- filesystem
+- interrupt for I/O event
+- advanced schedule policy
+- ...
