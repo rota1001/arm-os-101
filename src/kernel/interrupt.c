@@ -14,3 +14,12 @@ __attribute__((naked)) void timer_irq_handler(void)
     current->context.lr = (unsigned long) restore_tmp_registers;
     ret_to_sched();
 }
+
+unsigned long syscall_handler(unsigned long num,
+                              unsigned long a0,
+                              unsigned long a1,
+                              unsigned long a2)
+{
+    printf("syscall%d(%d, %d, %d)\n", num, a0, a1, a2);
+    return 0xdeadbeef;
+}

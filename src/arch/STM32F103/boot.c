@@ -29,6 +29,7 @@ __attribute__((section(".reset"))) void reset_isr()
 
 #define MSP 0
 #define RESET 1
+#define SVC 11
 #define PEND_SV 14
 #define SYSTICK 15
 #define TIM2_IRQ 44
@@ -37,5 +38,6 @@ __attribute__((section(".reset"))) void reset_isr()
 __attribute__((section(".isr_vector"))) unsigned long vector[] = {
     [MSP](unsigned long) & _stack_top,
     [RESET](unsigned long) reset_isr,
+    [SVC](unsigned long) svc_handler,
     [PEND_SV](unsigned long) pend_sv_irq_handler,
     [SYSTICK](unsigned long) systick_irq_handler};

@@ -19,6 +19,7 @@ task_t *proc_create(void (*func)(void), void *stack, unsigned long control)
     task->context.psp = (unsigned long) stack;
     task->context.psr = 0x1000000;
     task->context.control = control;
+    task->user_context = 0;
     list_push_back(&task_list, &task->list);
     return task;
 }

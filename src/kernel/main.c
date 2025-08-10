@@ -2,13 +2,15 @@
 #include "kernel/libc.h"
 #include "kernel/sched.h"
 #include "rcc.h"
+#include "user/syscall.h"
 
 extern int sched_ready;
 
 void proc1(void)
 {
     while (1) {
-        printf("proc1\n");
+        unsigned long x = syscall(1, 2, 3, 4);
+        printf("proc1: 0x%x\n", x);
         for (int c = 0; c < 500000; c++)
             ;
     }
@@ -17,7 +19,8 @@ void proc1(void)
 void proc2(void)
 {
     while (1) {
-        printf("proc2\n");
+        unsigned long x = syscall(1, 2, 3, 4);
+        printf("proc2: 0x%x\n", x);
         for (int c = 0; c < 500000; c++)
             ;
     }
@@ -43,7 +46,7 @@ int kernel_main()
 
     if (!proc_create(proc1, stack1 + 512, CONTROL_USER_PROC))
         goto FAIL3;
-    if (!proc_create(proc2, stack2 + 512, CONTROL_KERNEL_PROC))
+    if (!proc_create(proc2, stack2 + 512, CONTROL_USER_PROC))
         goto FAIL3;
 
     sched_ready = 1;
